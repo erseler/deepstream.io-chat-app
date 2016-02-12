@@ -32,31 +32,32 @@
                 user.set({ 'firstname': name, 'lastname': lastname })
                 users.set( client.getUid(), user.get())
 
+                
+
                 $('#login-page').hide();
                 for(var key in users.get()){
                     var li = $('<li>')
                     li.attr('id', key) 
                     li.text(users.get()[key]['firstname'] + " " + users.get()[key]['lastname'])
                     $('#users-list').append(li)
+                    $('#chat-room').show();
                 }
-                $('#chat-room').show();
+                
+                users.subscribe(function( data ){
+                    $('#users-list').empty();
+                    for(var key in users.get()){
+                        var li = $('<li>')
+                        li.attr('id', key) 
+                        li.text(users.get()[key]['firstname'] + " " + users.get()[key]['lastname'])
+                        $('#users-list').append(li)
+                    }
+                });
+
             })
 
-            $('input').keypress(function(e) {
-                if(e.which == 13) {
-                    client.event.emit('messaging',{ msg: input.value});
-                    client.rpc.make( 'addTwoNumbers', { numA: 4, numB: 7 }, function( error, response ){
-                        console.log(response)
-                    });
-                    //users.addEntry($('input').val());
-                }
-            });
 
- 
+            
 
-            client.event.subscribe( 'messaging', function( data ){
-                console.log(data)
-            });
 
 
         </script>
