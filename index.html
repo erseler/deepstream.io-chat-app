@@ -5,97 +5,23 @@
         <script type="text/javascript" src="jquery-2.2.0.min.js" ></script>
     </head>
     <body>
-        <div id = "login-page">
-            <input id = "name" type="text" />
-            <input id = "lastname" type="text" />
-            <button id = "login-button">Login</button>
+        <div id="login-page">
+            <input id="name" type="text" />
+            <input id="lastname" type="text" />
+            <button id="login-button">Login</button>
         </div>
-        <div id = "chat-room">
-            <h4>You have logged in as: <span style="color:darkgreen;" id = "user-profile"></span></h4>
+
+        <div id ="chat-room">
+            <h4>You have logged in as: <span style="color:darkgreen;" id="user-profile"></span></h4>
             <input id="msg-content" type="text"/> <button id="send-msg">Send</button>
             <h4>Available Users</h4>
-            <ul id = "users-list"></ul>
+            <ul id="users-list"></ul>
         </div>
-        <script type="text/javascript">
-            //js goes here
-            client = deepstream( 'localhost:6020' ).login();
-            var uid = client.getUid()
-            console.log('client connected');
 
-            //input = document.querySelector( 'input' );
-            var users = client.record.getRecord( 'users' );
-            var user = client.record.getRecord('user');
+        <div id="private-chat">
+            <input id="private-chat-content" type="text"/> <button id="private-chat-send">Send</button>
+        </div>
 
-            $('#chat-room').hide();
-            $('#login-button').on('click', function(){
-                console.log("button pressed!")
-
-                var name = $('#name').val();
-                var lastname = $('#lastname').val();
-                
-                user.set({ 'firstname': name, 'lastname': lastname })
-                users.set(uid, user.get())
-
-                $('#login-page').hide();
-                $('#user-profile').text(user.get()['firstname'] + " " + user.get()['lastname'])
-                for(var key in users.get()){
-                    var li = $('<li>')
-                    if(key!=uid){
-                        li.attr('id', key) 
-                        li.text(users.get()[key]['firstname'] + " " + users.get()[key]['lastname'])
-                        $('#users-list').append(li)    
-                    }
-                }
-                $('#chat-room').show();
-                
-                users.subscribe(function( data ){
-                    $('#users-list').empty();
-                    for(var key in data){
-                        var li = $('<li>')
-                        if(key!=uid){
-                            li.attr('id', key) 
-                            li.text(data[key]['firstname'] + " " + data[key]['lastname'])
-                            $('#users-list').append(li)
-                        }
-                    }
-                });
-            })
-            
-            client.event.subscribe('chat', function(data){
-                var user = users.get()[data.uid]
-
-                console.log(user.firstname + " " + user.lastname + ": " + data.msg)
-            })    
-
-            $('#send-msg').on('click', function(){
-                var msg = $('#msg-content').val()
-                client.event.emit( 'chat', {'msg':msg, 'uid':uid});
-            })
-            
-            /*
-            client.rpc.provide( 'chat', function( data, response ){
-
-                //you can now either send a response
-                response.send( data.numA + data.numB );
-
-                //reject the response so that it gets
-                //re-routed to another provider
-                response.reject();
-
-                //or send an error back
-                response.error( 'Something went wrong' );
-            });
-
-            //other clients can now call this function using
-            client.rpc.make( 'chat', { numA: 4, numB: 7 }, function( error, response ){
-                //response is 11 now
-            });
-
-            */
-            
-
-
-
-        </script>
+        <script type="text/javascript" src="client.js"></script>
     </body>
 </html>
