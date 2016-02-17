@@ -54,9 +54,9 @@ $(document).ready(function(){
         var li = $('<li>');
         li.text(data.msg);
         $('#message-list').append(li)
-        $("#message-list").animate({
-            scrollTop: $('#message-list')[0].scrollHeight - $('#message-list')[0].clientHeight
-        }, 1000);
+        $('#chat-box').scrollTop($('#message-list').height()); // do not forget animation
+
+        //console.log($('#message-list li').last().position().top + $('#message-list li').last().height())
         //$('#message-list').animate({ scrollTop: $(this).height() }, 1000);
         //console.log(user.firstname + " " + user.lastname + ": " + data.msg)
     })    
