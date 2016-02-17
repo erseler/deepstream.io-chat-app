@@ -49,8 +49,16 @@ $(document).ready(function(){
     //////////                   CHAT
     ///////////////////////////////////////////////////////////////////
     client.event.subscribe('chat', function(data){
+        
         var user = users.get()[data.uid]
-        console.log(user.firstname + " " + user.lastname + ": " + data.msg)
+        var li = $('<li>');
+        li.text(data.msg);
+        $('#message-list').append(li)
+        $("#message-list").animate({
+            scrollTop: $('#message-list')[0].scrollHeight - $('#message-list')[0].clientHeight
+        }, 1000);
+        //$('#message-list').animate({ scrollTop: $(this).height() }, 1000);
+        //console.log(user.firstname + " " + user.lastname + ": " + data.msg)
     })    
 
     $('#send-msg').on('click', function(){

@@ -1,0 +1,24 @@
+body{
+	margin-left: 15%;
+	width: 70%;
+}
+
+#chat-box{
+	height: 400px;
+	width: 50%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#wrapper-user-list{
+	float: left;
+	width: 20%;
+	margin-right: 5%;
+}
+
+ul#users-list{
+	overflow: auto;
+	/*list-style-type: none;*/
+}
+#message-list li:nth-child(odd)  { background-color:lightsteelblue; }
+#message-list li:nth-child(even)  { background-color:lightgray; }
