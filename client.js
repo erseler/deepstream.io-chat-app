@@ -14,8 +14,9 @@ $(document).ready(function(){
 
         var name = $('#name').val();
         var lastname = $('#lastname').val();
-        
-        user.set({ 'firstname': name, 'lastname': lastname })
+        var colors = ["greenyellow", "orange", "red", "orangered", "indianred", "steelblue", "gold", "darkgreen", "darkorange", "firebrick"]
+        var color = colors[Math.floor((Math.random() * 10))];
+        user.set({ 'firstname': name, 'lastname': lastname, 'color':color})
         users.set(uid, user.get())
 
         $('#login-page').hide();
@@ -49,10 +50,10 @@ $(document).ready(function(){
     //////////                   CHAT
     ///////////////////////////////////////////////////////////////////
     client.event.subscribe('chat', function(data){
-        
+        var CSS_COLOR_NAMES = ["AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGrey","DarkGreen","DarkKhaki","DarkMagenta","DarkOliveGreen","Darkorange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen","DarkSlateBlue","DarkSlateGray","DarkSlateGrey","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray","DimGrey","DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold","GoldenRod","Gray","Grey","Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory","Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan","LightGoldenRodYellow","LightGray","LightGrey","LightGreen","LightPink","LightSalmon","LightSeaGreen","LightSkyBlue","LightSlateGray","LightSlateGrey","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta","Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue","MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink","Plum","PowderBlue","Purple","Red","RosyBrown","RoyalBlue","SaddleBrown","Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke","Yellow","YellowGreen"];
         var user = users.get()[data.uid]
         var li = $('<li>');
-        li.text(data.msg);
+        li.append('<span style="color:' + user.color + ';">' + user.firstname + ' ' + user.lastname + ': </span>' + data.msg)
         $('#message-list').append(li)
         $('#chat-box').scrollTop($('#message-list').height()); // do not forget animation
 
