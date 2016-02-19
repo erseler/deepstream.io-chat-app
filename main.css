@@ -31,10 +31,11 @@ li{
 }
 
 ul#users-list{
+	max-height: 400px;
 	overflow: auto;
 	/*list-style-type: none;*/
 }
-#message-list li:nth-child(odd)  { background-color:floralwhite ; }
+#message-list li:nth-child(odd)  { background-color:whitesmoke ; }
 #message-list li:nth-child(even)  { background-color:white; }
 #message-list {
 	
@@ -60,3 +61,8 @@ ul#users-list{
 	width: 20%;
     margin-left: 4.25%;
 }
+#chat-room{
+	margin-top: 5%;
+}
+
+/* ----Chat Box-------*/

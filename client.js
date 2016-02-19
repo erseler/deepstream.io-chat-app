@@ -15,18 +15,20 @@ $(document).ready(function(){
 
         var name = $('#name').val();
         var lastname = $('#lastname').val();
-        var colors = ["greenyellow", "orange", "red", "orangered", "indianred", "steelblue", "gold", "darkgreen", "darkorange", "firebrick"]
+        var colors = ["indigo", "orange", "red", "orangered", "indianred", "steelblue", "darkgreen", "darkorange", "firebrick" ,"blueviolet"]
         var color = colors[Math.floor((Math.random() * 10))];
         user.set({ 'firstname': name, 'lastname': lastname, 'color':color})
         users.set(uid, user.get())
 
         $('#login-page').hide();
         $('#user-profile').text(user.get()['firstname'] + " " + user.get()['lastname'])
+        $('#user-profile').css('color', user.get()['color'])
         for(var key in users.get()){
             var li = $('<li>')
             if(key!=uid){
                 li.attr('id', key) 
                 li.text(users.get()[key]['firstname'] + " " + users.get()[key]['lastname'])
+                li.css('color', users.get()[key]['color'])
                 //a.append(li)
                 $('#users-list').append(li)    
             }
@@ -40,6 +42,8 @@ $(document).ready(function(){
                 if(key!=uid){
                     li.attr('id', key) 
                     li.text(data[key]['firstname'] + " " + data[key]['lastname'])
+                    li.css('color', users.get()[key]['color'])
+
                     //a.append(li)
                     $('#users-list').append(li)
                 }
