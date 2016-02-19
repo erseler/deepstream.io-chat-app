@@ -2,23 +2,61 @@ body{
 	margin-left: 15%;
 	width: 70%;
 }
+form {
+	margin-top:5%;
+}
+ul{
+	padding: 0;
+	margin: 0;
+}
+li{
+	list-style-type: none;
+}
 
 #chat-box{
+	min-height: 400px;
 	height: 400px;
-	width: 50%;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
+#chat-box-wrapper{
+	width: 50%;
+	margin-left: 25%;
+}
 
-#wrapper-user-list{
+#user-list-wrapper{
 	float: left;
 	width: 20%;
-	margin-right: 5%;
+
 }
 
 ul#users-list{
 	overflow: auto;
 	/*list-style-type: none;*/
 }
-#message-list li:nth-child(odd)  { background-color:lightsteelblue; }
-#message-list li:nth-child(even)  { background-color:lightgray; }
+#message-list li:nth-child(odd)  { background-color:floralwhite ; }
+#message-list li:nth-child(even)  { background-color:white; }
+#message-list {
+	
+}
+/* -----Login Page------ */
+#login-form{
+	margin-top: 10%;
+	margin-left: 30%;
+	width: 40%;
+}
+#login-button{
+	width: 40%;
+	margin-left: 30%;
+}
+
+
+/* ----Chat Room------ */
+#msg-content-div{
+	float: left;
+	width: 75%;
+}
+#post-msg-button{
+	width: 20%;
+    margin-left: 4.25%;
+}

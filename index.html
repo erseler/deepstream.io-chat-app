@@ -1,28 +1,50 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="main.css">
+    <head>    
+        <!-- Deepstream-io - Client -->
         <script type="text/javascript" src="node_modules/deepstream.io-client-js/dist/deepstream.js"></script>
+        <!-- Jquery -->
         <script type="text/javascript" src="jquery-2.2.0.min.js"></script>
+        <!-- Semantic UI -->
+        <link rel="stylesheet" type="text/css" href="semantic-ui/semantic.min.css">
+        <script src="semantic-ui/semantic.min.js"></script>  
+        <!-- Main Css File -->
+        <link rel="stylesheet" type="text/css" href="main.css">
     </head>
     <body>
         <div id="login-page">
-            <input id="name" type="text" />
-            <input id="lastname" type="text" />
-            <button id="login-button">Login</button>
+            <h3></h3>
+            <form id="login-form" class="ui form">
+                 <h3 align="center">Browser Chat App</h3>
+              <div class="field">
+                <input type="text" id="name" placeholder="First Name">
+              </div>
+              <div class="field">
+                <input type="text" id="lastname" placeholder="Last Name">
+              </div>
+              <button id="login-button" class="ui button" type="submit">Join Chat</button>
+            </form>    
         </div>
 
         <div id ="chat-room">
             <h4>You have logged in as: <span style="color:darkgreen;" id="user-profile"></span></h4>
-            <input id="msg-content" type="text"/> <button id="send-msg">Send</button>
-            <div id="wrapper-user-list">
+            <div id="user-list-wrapper">
                 <h4>Available Users</h4>
                 <ul id="users-list"></ul>
             </div>
-            
-            <div id="chat-box">
-                <ul id="message-list"></ul>
+
+            <div id="chat-box-wrapper">
+                <div id="chat-box">
+                    <ul id="message-list"></ul>   
+                </div> 
+                <form id="post-msg-form" class="ui form">
+                    <div class="field" id="msg-content-div">
+                        <input type="text" id="msg-content">
+                    </div>
+                    <button id="post-msg-button" class="ui button" type="submit">Send</button>
+                </form> 
             </div>
+            
         </div>
 
         <div id="private-chat">
