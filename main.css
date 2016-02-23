@@ -13,13 +13,13 @@ li{
 	list-style-type: none;
 }
 
-#chat-box{
+.chat-box{
 	min-height: 400px;
 	height: 400px;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
-#chat-box-wrapper{
+.chat-box-wrapper{
 	width: 50%;
 	margin-left: 25%;
 }
@@ -31,7 +31,7 @@ li{
 }
 
 ul#users-list{
-	max-height: 400px;
+	max-height: 280px;
 	overflow: auto;
 	/*list-style-type: none;*/
 }
@@ -53,16 +53,19 @@ ul#users-list{
 
 
 /* ----Chat Room------ */
-#msg-content-div{
+.msg-content-div{
 	float: left;
-	width: 75%;
+	width: 74%;
 }
-#post-msg-button{
+.send-button{
 	width: 20%;
-    margin-left: 4.25%;
+    margin-left: 4.25%!important;
 }
 #chat-room{
 	margin-top: 5%;
 }
 
-/* ----Chat Box-------*/
+/* ------Private Chat-------*/
+#private-chat{
+	margin-top: 5%;
+}
