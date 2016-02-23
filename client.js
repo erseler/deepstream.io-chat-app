@@ -29,6 +29,10 @@ $(document).ready(function(){
                 li.attr('id', key) 
                 li.text(users.get()[key]['firstname'] + " " + users.get()[key]['lastname'])
                 li.css('color', users.get()[key]['color'])
+                li.css('margin-bottom','5px')
+                li.hover(function(){
+                    $(this).css('cursor','pointer')
+                })
                 //a.append(li)
                 $('#users-list').append(li)    
             }
@@ -43,7 +47,9 @@ $(document).ready(function(){
                     li.attr('id', key) 
                     li.text(data[key]['firstname'] + " " + data[key]['lastname'])
                     li.css('color', users.get()[key]['color'])
-
+                    li.hover(function(){
+                        $(this).css('cursor','pointer')
+                    })
                     //a.append(li)
                     $('#users-list').append(li)
                 }
@@ -59,7 +65,7 @@ $(document).ready(function(){
         var li = $('<li>');
         li.append('<span style="color:' + user.color + ';">' + user.firstname + ' ' + user.lastname + ': </span>' + data.msg)
         $('#message-list').append(li)
-        $('#chat-box').scrollTop($('#message-list').height()); // do not forget animation
+        $('.chat-box').scrollTop($('#message-list').height()); // do not forget animation
 
         //console.log($('#message-list li').last().position().top + $('#message-list li').last().height())
         //$('#message-list').animate({ scrollTop: $(this).height() }, 1000);
@@ -77,34 +83,56 @@ $(document).ready(function(){
     //////////////////////////////////////////////////////////////////
     client.event.subscribe('chat-request',function(data){
         if(data.targetUid==uid){
+            /* 
+            if (confirm(users.get()[data.uid]['firstname'] + ' ' + users.get()[data.uid]['lastname'] + 'has sent you a chat request?')) {
+                // Save it!
+            } else {
+                // Do nothing!
+            }
+            */
+            var targetUser = users.get()[data.uid]
             $('#chat-room').hide();
             $('#private-chat').show();
+            $('#chat-user-head').append('Chat with: ' + '<span style="color:' + targetUser.color + ';">' + targetUser.firstname + ' ' + targetUser.lastname + '</span>')
             client.event.subscribe('private-chat/' + data.uid, function(message){     
-                console.log(message.sender + " says: " + message.content)
+                var user = users.get()[message.sender]
+                var li = $('<li>');
+                li.append('<span style="color:' + user.color + ';">' + user.firstname + ' ' + user.lastname + ': </span>' + message.content)
+                $('#private-message-list').append(li)
+                $('.chat-box').scrollTop($('#private-message-list').height());
             })
 
-            $('#private-chat-send').on('click',function(){
+            $('#private-chat-form').submit(function(e){
+                e.preventDefault();
                 var content = $('#private-chat-content').val()
-                client.event.emit('private-chat/' + data.uid, {'sender':users.get()[uid]['firstname'], 'content':content})
+                $('#private-chat-content').val('')
+                client.event.emit('private-chat/' + data.uid, {'sender':uid, 'content':content})
             })
             
         }
     })
 
     $("#users-list").on('click', 'li', function(event) {
-        var targetUid = event.target.id;           
+        var targetUid = event.target.id;     
+        var targetUser = users.get()[targetUid]      
         client.event.emit('chat-request', {'targetUid':targetUid, 'uid':uid})
         
         $('#chat-room').hide();
         $('#private-chat').show();
-
+        $('#chat-user-head').append('Chat with: ' + '<span style="color:' + targetUser.color + ';">' + targetUser.firstname + ' ' + targetUser.lastname + '</span>')
         client.event.subscribe('private-chat/' + uid, function(message){
-            console.log(message.sender + " says: " + message.content)
+            var user = users.get()[message.sender]
+            var li = $('<li>');
+            li.append('<span style="color:' + user.color + ';">' + user.firstname + ' ' + user.lastname + ': </span>' + message.content)
+            $('#private-message-list').append(li)
+            $('.chat-box').scrollTop($('#private-message-list').height());
         });
 
-        $('#private-chat-send').on('click',function(){
+        $('#private-chat-form').submit(function(e){
+            e.preventDefault();
             var content = $('#private-chat-content').val()
-            client.event.emit('private-chat/' + uid, {'sender':users.get()[uid]['firstname'], 'content':content})
+            $('#private-chat-content').val('')
+            client.event.emit('private-chat/' + uid, {'sender':uid, 'content':content})
         })
 
     });
