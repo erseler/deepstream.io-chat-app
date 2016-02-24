@@ -37,9 +37,9 @@ ul#users-list{
 }
 #message-list li:nth-child(odd)  { background-color:whitesmoke ; }
 #message-list li:nth-child(even)  { background-color:white; }
-#message-list {
-	
-}
+#private-message-list li:nth-child(odd)  { background-color:whitesmoke ; }
+#private-message-list li:nth-child(even)  { background-color:white; }
+
 /* -----Login Page------ */
 #login-form{
 	margin-top: 10%;
@@ -69,3 +69,4 @@ ul#users-list{
 #private-chat{
 	margin-top: 5%;
 }
+
